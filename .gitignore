@@ -1,2 +1,9 @@
+# Configurations
 config.ini
+
+# Cache files
 __pycache__/
+
+# Ignore all Markdown files except README.md
+*.md
+!README.md
