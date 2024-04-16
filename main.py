@@ -17,11 +17,11 @@ def main():
     if not verify_notion_login(notion):
         sys.exit("Notion API 연결 실패.")
     
-    page_ids = fetch_pages_to_publish(notion, database_id)
-    if not page_ids:
+    pages = fetch_pages_to_publish(notion, database_id)
+    if not pages:
         sys.exit("내보낼 페이지가 없습니다.")
     
-    export_markdown_pages(notion_token, page_ids)
+    export_markdown_pages(notion_token, pages)
     
     if not verify_medium_login(medium_token):
         sys.exit("Medium API 연결 실패.")
