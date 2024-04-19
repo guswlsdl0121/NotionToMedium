@@ -1,7 +1,7 @@
 import sys
 import configparser
 from notion import get_notion_client, verify_notion_login, fetch_pages_to_publish, export_markdown_pages
-from medium import verify_medium_login
+from medium import verify_medium_login, post_file
 
 def load_config():
     """config.ini 파일에서 토큰과 데이터베이스 ID를 로드합니다."""
@@ -23,7 +23,11 @@ def main():
     
     export_markdown_pages(notion_token, pages)
     
-    if not verify_medium_login(medium_token):
+    user_id = verify_medium_login(medium_token)
+    if user_id:
+        print("Medium API 연결 성공.")
+        post_file(medium_token, user_id, pages)
+    else:
         sys.exit("Medium API 연결 실패.")
 
 if __name__ == '__main__':
